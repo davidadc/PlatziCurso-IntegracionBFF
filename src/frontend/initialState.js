@@ -1,7 +1,7 @@
-const initialState = {
+export default {
   user: {},
-  playing: {},
   myList: [],
+  playing: {},
   trends: [
     {
       id: 2,
@@ -163,5 +163,3 @@ const initialState = {
     },
   ],
 };
-
-export default initialState;

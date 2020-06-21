@@ -1,15 +1,34 @@
 import Home from '../containers/Home';
+import Player from '../containers/Player';
 import Login from '../containers/Login';
 import Register from '../containers/Register';
-import Player from '../containers/Player';
-import NotFound from '../containers/NotFound';
+import NotFount from '../containers/NotFount';
 
-const serverRoutes = [
-  { exact: true, path: '/', component: Home },
-  { exact: true, path: '/login', component: Login },
-  { exact: true, path: '/register', component: Register },
-  { exact: true, path: '/player/:id', component: Player },
-  { name: 'NotFound', component: NotFound },
+const routes = [
+  {
+    path: '/',
+    exact: true,
+    component: Home,
+  },
+  {
+    path: '/player/:id',
+    exact: true,
+    component: Player,
+  },
+  {
+    path: '/login',
+    exact: true,
+    component: Login,
+  },
+  {
+    path: '/register',
+    exact: true,
+    component: Register,
+  },
+  {
+    name: 'NotFount',
+    component: NotFount,
+  },
 ];
 
-export default serverRoutes;
+export default routes;

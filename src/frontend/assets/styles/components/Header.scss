@@ -1,3 +1,5 @@
+@import '../Vars.scss';
+
 .header {
   align-items: center;
   background: #8f57fd;
@@ -7,6 +9,11 @@
   justify-content: space-between;
   top: 0px;
   width: 100%;
+}
+
+.isLogin,
+.isRegister {
+  background-color: #21c08b;
 }
 
 .header__img {

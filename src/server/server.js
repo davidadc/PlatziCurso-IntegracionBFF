@@ -77,7 +77,7 @@ const setResponse = (html, preloadedState, manifest) => {
         <script>
           window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(
             /</g,
-            '\\u003c'
+            '\\u003c',
           )}
         </script>
         <script src="${mainBuild}" type="text/javascript"></script>
@@ -96,7 +96,7 @@ const renderApp = (req, res) => {
       <StaticRouter location={req.url} context={{}}>
         <Layout>{renderRoutes(serverRoutes)}</Layout>
       </StaticRouter>
-    </Provider>
+    </Provider>,
   );
 
   res.send(setResponse(html, preloadedState, req.hashManifest));
@@ -138,12 +138,23 @@ app.post('/auth/sign-up', async function (req, res, next) {
 
   try {
     const { data, status } = await axios({
-      url: `${config.apiUrl}/api/auth/sign-up`,
+      url: `${process.env.API_URL}/api/auth/sign-up`,
       method: 'post',
-      data: user,
+      data: {
+        email: user.email,
+        name: user.name,
+        password: user.password,
+      },
     });
 
-    res.status(201).json({ message: 'User created.' });
+    res
+      .status(201)
+      .json({
+        name: user.name,
+        email: user.email,
+        id: data.id,
+        message: 'User created.',
+      });
   } catch (error) {
     next(error);
   }
