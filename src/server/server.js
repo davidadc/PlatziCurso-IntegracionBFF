@@ -104,32 +104,28 @@ const renderApp = (req, res) => {
 };
 
 app.post('/auth/sign-in', async function (req, res, next) {
-  // Obtenemos el atributo rememberMe desde el cuerpo del request
-  const { rememberMe } = req.body;
-
   passport.authenticate('basic', function (error, data) {
     try {
       if (error || !data) {
         next(boom.unauthorized());
       }
 
-      req.login(data, { session: false }, async function (error) {
-        if (error) {
-          next(error);
+      req.login(data, { session: false }, async function (err) {
+        if (err) {
+          next(err);
         }
 
         const { token, ...user } = data;
 
         res.cookie('token', token, {
-          httpOnly: !config.dev,
-          secure: !config.dev,
-          maxAge: rememberMe ? THIRTY_DAYS_IN_SEC : TWO_HOURS_IN_SEC,
+          httpOnly: !(ENV === 'development'),
+          secure: !(ENV === 'development'),
         });
 
         res.status(200).json(user);
       });
-    } catch (error) {
-      next(error);
+    } catch (err) {
+      next(err);
     }
   })(req, res, next);
 });
