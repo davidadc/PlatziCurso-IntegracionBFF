@@ -17,7 +17,13 @@ const Header = (props) => {
     isRegister,
   });
   const handleLogout = () => {
+    document.cookie = 'id=';
+    document.cookie = 'name=';
+    document.cookie = 'email=';
+    document.cookie = 'token=';
+
     props.logoutRequest({});
+    window.location.href = '/login';
   };
   return (
     <header className={HeaderClass}>
