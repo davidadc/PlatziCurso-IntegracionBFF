@@ -1,3 +1,4 @@
+/* eslint-disable prefer-arrow-callback */
 import express from 'express';
 import dotenv from 'dotenv';
 import webpack from 'webpack';
@@ -137,7 +138,7 @@ app.post('/auth/sign-up', async function (req, res, next) {
   const { body: user } = req;
 
   try {
-    const { data, status } = await axios({
+    const { data } = await axios({
       url: `${process.env.API_URL}/api/auth/sign-up`,
       method: 'post',
       data: {
@@ -147,14 +148,12 @@ app.post('/auth/sign-up', async function (req, res, next) {
       },
     });
 
-    res
-      .status(201)
-      .json({
-        name: user.name,
-        email: user.email,
-        id: data.id,
-        message: 'User created.',
-      });
+    res.status(201).json({
+      name: user.name,
+      email: user.email,
+      id: data.id,
+      message: 'User created.',
+    });
   } catch (error) {
     next(error);
   }
