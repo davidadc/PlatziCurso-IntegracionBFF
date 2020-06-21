@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore, compose } from 'redux';
+import { createStore, compose, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 import { Router } from 'react-router';
 import { createBrowserHistory } from 'history';
 
@@ -12,7 +13,11 @@ const history = createBrowserHistory();
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const preloadedState = window.__PRELOADED_STATE__;
-const store = createStore(reducer, preloadedState, composeEnhancers());
+const store = createStore(
+  reducer,
+  preloadedState,
+  composeEnhancers(applyMiddleware(thunk)),
+);
 
 delete window.__PRELOADED_STATE__;
 
@@ -22,5 +27,5 @@ ReactDOM.hydrate(
       <App />
     </Router>
   </Provider>,
-  document.getElementById('app')
+  document.getElementById('app'),
 );
