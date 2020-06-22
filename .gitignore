@@ -76,3 +76,5 @@ yarn-error.log
 dist/
 
 src/server/public
+
+src/frontend/__test__/components/__snapshots__
